@@ -1,0 +1,16 @@
+[
+  {
+    "id": "dcb6b5a1-82f3-462f-9c73-94b1a2c0c669",
+    "name": "Alice",
+    "cpf": "123.456.789-00",
+    "email": "alice@example.com",
+    "createdAt": "2026-04-20T18:50:38.144Z"
+  },
+  {
+    "id": "5874b312-2e41-4160-abdd-801360d663be",
+    "name": "Alice",
+    "cpf": "123.456.789-00",
+    "email": "alice@example.com",
+    "createdAt": "2026-04-20T18:51:31.585Z"
+  }
+]

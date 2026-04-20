@@ -50,7 +50,7 @@ function ensureDirExists(dir: string) {
   });
 }
 
-export class JsonRepository<T extends JsonPrimitive | JsonObject | JsonArray> {
+export class JsonRepository<T = any> {
   private filePath: string;
   private tempSuffix = ".tmp";
 
