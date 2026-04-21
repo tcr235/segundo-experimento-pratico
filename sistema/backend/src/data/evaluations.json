@@ -1,0 +1,18 @@
+[
+  {
+    "id": "cb1dfa49-175a-4c42-8f7c-a33f3ccf96e7",
+    "studentId": "",
+    "classId": "",
+    "goalName": "Requirements",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T23:35:13.510Z"
+  },
+  {
+    "id": "b3302af1-43de-4800-8d08-3ca45a9523ba",
+    "studentId": "89232c55-771b-4891-a585-9a66b86fe83c",
+    "classId": "4a3081c4-29e5-4959-9bd6-59363656f08f",
+    "goalName": "Requirements",
+    "status": "MPA",
+    "updatedAt": "2026-04-21T23:37:44.310Z"
+  }
+]

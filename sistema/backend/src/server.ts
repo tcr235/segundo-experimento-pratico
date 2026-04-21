@@ -7,6 +7,10 @@ app.use(express.json());
 
 import studentsRouter from './routes/students';
 app.use('/students', studentsRouter);
+import classesRouter from './routes/classes';
+app.use('/classes', classesRouter);
+import evaluationsRouter from './routes/evaluations';
+app.use('/evaluations', evaluationsRouter);
 
 app.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', uptime: process.uptime() });
