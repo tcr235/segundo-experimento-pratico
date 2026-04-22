@@ -14,5 +14,13 @@
     "goalName": "Requirements",
     "status": "MPA",
     "updatedAt": "2026-04-21T23:37:44.310Z"
+  },
+  {
+    "id": "ef09977a-0feb-44da-87ff-8b32c88e61c4",
+    "studentId": "91219d84-e07e-4730-bb85-75ce76fe7f10",
+    "classId": "0ee4d4e1-10a2-4ddc-b589-0410a521577b",
+    "goalName": "",
+    "status": "MANA",
+    "updatedAt": "2026-04-22T00:03:09.075Z"
   }
 ]

@@ -26,5 +26,12 @@
     "cpf": "000.000.000-00",
     "email": "bob@example.com",
     "createdAt": "2026-04-21T23:35:29.469Z"
+  },
+  {
+    "id": "91219d84-e07e-4730-bb85-75ce76fe7f10",
+    "name": "Thiago",
+    "cpf": "123456789",
+    "email": "tcr2@cin.ufpe.br",
+    "createdAt": "2026-04-22T00:02:16.993Z"
   }
 ]
