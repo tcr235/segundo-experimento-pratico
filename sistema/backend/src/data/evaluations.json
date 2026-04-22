@@ -22,5 +22,13 @@
     "goalName": "",
     "status": "MANA",
     "updatedAt": "2026-04-22T00:03:09.075Z"
+  },
+  {
+    "id": "d1a1d02b-6ca2-4fa9-8e92-94baf6737cd4",
+    "studentId": "91219d84-e07e-4730-bb85-75ce76fe7f10",
+    "classId": "0ee4d4e1-10a2-4ddc-b589-0410a521577b",
+    "goalName": "",
+    "status": "MPA",
+    "updatedAt": "2026-04-22T00:23:20.892Z"
   }
 ]

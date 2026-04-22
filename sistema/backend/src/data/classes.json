@@ -30,7 +30,17 @@
     "topic": "TALP",
     "year": 2026,
     "semester": 30,
-    "students": [],
+    "students": [
+      "91219d84-e07e-4730-bb85-75ce76fe7f10"
+    ],
     "createdAt": "2026-04-22T00:02:36.863Z"
+  },
+  {
+    "id": "4f443fb8-fd33-474a-9943-7f5aef1fd130",
+    "topic": "Teste",
+    "year": 2026,
+    "semester": 2,
+    "students": [],
+    "createdAt": "2026-04-22T00:26:12.876Z"
   }
 ]
