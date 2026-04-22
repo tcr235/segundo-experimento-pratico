@@ -8,7 +8,8 @@
     "start": "node dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "test": "echo \"No tests configured\" && exit 0",
-    "test:acceptance": "echo \"No acceptance tests configured\" && exit 0"
+    "test:acceptance": "cucumber-js -r ts-node/register -r ./src/test/steps -f summary ./src/test/features",
+    "test:ci": "npm run build && NODE_ENV=test mocha -r ts-node/register ./src/test/**/*.spec.ts"
   },
   "engines": {
     "node": ">=16"
@@ -20,10 +21,20 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^8.0.0",
+    "@cucumber/pretty-formatter": "^3.1.0",
+    "@types/chai": "^4.3.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.17",
     "@types/node": "^20.0.0",
+    "@types/sinon": "^10.0.0",
+    "@types/supertest": "^2.0.12",
     "@types/uuid": "^10.0.0",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "sinon": "^15.0.0",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.0"
   }

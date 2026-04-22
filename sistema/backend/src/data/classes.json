@@ -1,39 +1,12 @@
 [
   {
-    "id": "cb6f903a-03ca-4123-8539-24d33e903466",
-    "topic": "Outro teste",
-    "year": 2026,
-    "semester": 3,
-    "students": [],
-    "createdAt": "2026-04-21T23:35:13.359Z",
-    "updatedAt": "2026-04-22T00:40:35.904Z"
-  },
-  {
-    "id": "4a3081c4-29e5-4959-9bd6-59363656f08f",
-    "topic": "Intro",
+    "id": "97f84a5c-7ddf-47d0-b69a-d0767766057f",
+    "topic": "Test Topic",
     "year": 2026,
     "semester": 1,
     "students": [
-      "89232c55-771b-4891-a585-9a66b86fe83c"
+      "331b5792-5d91-4e17-886b-4fed922f807c"
     ],
-    "createdAt": "2026-04-21T23:36:27.534Z"
-  },
-  {
-    "id": "0ee4d4e1-10a2-4ddc-b589-0410a521577b",
-    "topic": "TALP",
-    "year": 2026,
-    "semester": 30,
-    "students": [
-      "91219d84-e07e-4730-bb85-75ce76fe7f10"
-    ],
-    "createdAt": "2026-04-22T00:02:36.863Z"
-  },
-  {
-    "id": "4f443fb8-fd33-474a-9943-7f5aef1fd130",
-    "topic": "Teste",
-    "year": 2026,
-    "semester": 2,
-    "students": [],
-    "createdAt": "2026-04-22T00:26:12.876Z"
+    "createdAt": "2026-04-22T01:29:18.641Z"
   }
 ]

@@ -1,21 +1,33 @@
-import { Request, Response } from 'express';
-import JsonRepository from '../repositories/jsonRepository';
-import { ClassEntity } from '../models/types';
-import { v4 as uuidv4 } from 'uuid';
+import { Request, Response } from "express";
+import JsonRepository from "../repositories/jsonRepository";
+import { ClassEntity } from "../models/types";
+import { v4 as uuidv4 } from "uuid";
 
-const repo = new JsonRepository<ClassEntity[]>('src/data/classes.json');
-import studentsRepo from '../repositories/jsonRepository';
+const repo = new JsonRepository<ClassEntity[]>("src/data/classes.json");
+import studentsRepo from "../repositories/jsonRepository";
 
 async function ensureStudentExists(studentId: string) {
-  const srepo = new JsonRepository<any[]>('src/data/students.json');
+  const srepo = new JsonRepository<any[]>("src/data/students.json");
   const students = await srepo.read();
-  return Array.isArray(students) && students.find((s) => (s as any).id === studentId);
+  return (
+    Array.isArray(students) && students.find((s) => (s as any).id === studentId)
+  );
 }
 
 export async function createClass(req: Request, res: Response) {
   const body = req.body;
-  if (!body || typeof body.topic !== 'string' || typeof body.year !== 'number' || typeof body.semester !== 'number') {
-    return res.status(400).json({ error: 'topic (string), year (number) and semester (number) are required' });
+  if (
+    !body ||
+    typeof body.topic !== "string" ||
+    typeof body.year !== "number" ||
+    typeof body.semester !== "number"
+  ) {
+    return res
+      .status(400)
+      .json({
+        error:
+          "topic (string), year (number) and semester (number) are required",
+      });
   }
 
   const cls: ClassEntity = {
@@ -40,13 +52,25 @@ export async function getAllClasses(_req: Request, res: Response) {
   return res.json(list || []);
 }
 
+export async function getClassById(req: Request, res: Response) {
+  const id = req.params.id;
+  const list = await repo.read();
+  const cls = (Array.isArray(list) ? list : []).find(
+    (c) => (c as ClassEntity).id === id,
+  ) as ClassEntity | undefined;
+  if (!cls) return res.status(404).json({ error: "Class not found" });
+  return res.json(cls);
+}
+
 export async function enrollStudent(req: Request, res: Response) {
   const classId = req.params.id;
   const { studentId } = req.body;
-  if (!studentId || typeof studentId !== 'string') return res.status(400).json({ error: 'studentId (UUID) required in body' });
+  if (!studentId || typeof studentId !== "string")
+    return res.status(400).json({ error: "studentId (UUID) required in body" });
 
   const studentExists = await ensureStudentExists(studentId);
-  if (!studentExists) return res.status(404).json({ error: 'Student not found' });
+  if (!studentExists)
+    return res.status(404).json({ error: "Student not found" });
 
   let enrolled = false;
   await repo.update((current) => {
@@ -62,15 +86,28 @@ export async function enrollStudent(req: Request, res: Response) {
     return list as unknown as ClassEntity[];
   });
 
-  if (!enrolled) return res.status(404).json({ error: 'Class not found or student already enrolled' });
+  if (!enrolled)
+    return res
+      .status(404)
+      .json({ error: "Class not found or student already enrolled" });
   return res.status(204).send();
 }
 
 export async function updateClass(req: Request, res: Response) {
   const id = req.params.id;
   const body = req.body;
-  if (!body || typeof body.topic !== 'string' || typeof body.year !== 'number' || typeof body.semester !== 'number') {
-    return res.status(400).json({ error: 'topic (string), year (number) and semester (number) are required' });
+  if (
+    !body ||
+    typeof body.topic !== "string" ||
+    typeof body.year !== "number" ||
+    typeof body.semester !== "number"
+  ) {
+    return res
+      .status(400)
+      .json({
+        error:
+          "topic (string), year (number) and semester (number) are required",
+      });
   }
 
   let updated: ClassEntity | null = null;
@@ -92,7 +129,7 @@ export async function updateClass(req: Request, res: Response) {
     return next as unknown as ClassEntity[];
   });
 
-  if (!updated) return res.status(404).json({ error: 'Class not found' });
+  if (!updated) return res.status(404).json({ error: "Class not found" });
   return res.json(updated);
 }
 
@@ -101,11 +138,13 @@ export async function deleteClass(req: Request, res: Response) {
   let removed = false;
   await repo.update((current) => {
     const list = Array.isArray(current) ? current : [];
-    const next = list.filter((c) => (c as ClassEntity).id !== id) as unknown as ClassEntity[];
+    const next = list.filter(
+      (c) => (c as ClassEntity).id !== id,
+    ) as unknown as ClassEntity[];
     removed = next.length !== list.length;
     return next;
   });
 
-  if (!removed) return res.status(404).json({ error: 'Class not found' });
+  if (!removed) return res.status(404).json({ error: "Class not found" });
   return res.status(204).send();
 }
