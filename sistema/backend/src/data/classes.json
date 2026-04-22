@@ -1,19 +1,12 @@
 [
   {
     "id": "cb6f903a-03ca-4123-8539-24d33e903466",
-    "topic": "Intro",
+    "topic": "Outro teste",
     "year": 2026,
-    "semester": 1,
+    "semester": 3,
     "students": [],
-    "createdAt": "2026-04-21T23:35:13.359Z"
-  },
-  {
-    "id": "a6d97497-7515-4066-8dee-19e967c8443c",
-    "topic": "Intro",
-    "year": 2026,
-    "semester": 1,
-    "students": [],
-    "createdAt": "2026-04-21T23:35:36.259Z"
+    "createdAt": "2026-04-21T23:35:13.359Z",
+    "updatedAt": "2026-04-22T00:40:35.904Z"
   },
   {
     "id": "4a3081c4-29e5-4959-9bd6-59363656f08f",

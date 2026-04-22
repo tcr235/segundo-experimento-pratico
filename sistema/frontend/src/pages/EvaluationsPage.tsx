@@ -28,30 +28,59 @@ export default function EvaluationsPage() {
     fetchAll()
   }
 
+  // pivot: goals are columns, rows are students; show latest status per student+goal
+  const goals = Array.from(new Set(evaluations.map(ev => ev.goalName)))
+  const latest: Record<string, Record<string, Evaluation>> = {}
+  evaluations.forEach(ev => {
+    latest[ev.studentId] = latest[ev.studentId] || {}
+    const prev = latest[ev.studentId][ev.goalName]
+    if (!prev || new Date(ev.updatedAt) > new Date(prev.updatedAt)) {
+      latest[ev.studentId][ev.goalName] = ev
+    }
+  })
+
   return (
     <div>
       <h2>Evaluations</h2>
-      <form onSubmit={submit} style={{ marginBottom: 16 }}>
-        <select value={form.studentId} onChange={(e) => setForm({ ...form, studentId: e.target.value })}>
-          <option value="">Select student</option>
-          {students.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-        </select>
-        <select value={form.classId} onChange={(e) => setForm({ ...form, classId: e.target.value })}>
-          <option value="">Select class</option>
-          {classes.map(c => <option key={c.id} value={c.id}>{c.topic}</option>)}
-        </select>
-        <input placeholder="Goal" value={form.goal} onChange={(e) => setForm({ ...form, goal: e.target.value })} />
-        <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value as GoalStatus })}>
-          {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
-        </select>
-        <button type="submit">Submit</button>
-      </form>
 
-      <ul>
-        {evaluations.map(ev => (
-          <li key={ev.id}>{ev.goalName} — {ev.status} — student: {ev.studentId} — class: {ev.classId}</li>
-        ))}
-      </ul>
+      <div className="card">
+        <form onSubmit={submit} className="form-row">
+          <select value={form.studentId} onChange={(e) => setForm({ ...form, studentId: e.target.value })}>
+            <option value="">Select student</option>
+            {students.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
+          <select value={form.classId} onChange={(e) => setForm({ ...form, classId: e.target.value })}>
+            <option value="">Select class</option>
+            {classes.map(c => <option key={c.id} value={c.id}>{c.topic}</option>)}
+          </select>
+          <input placeholder="Goal" value={form.goal} onChange={(e) => setForm({ ...form, goal: e.target.value })} />
+          <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value as GoalStatus })}>
+            {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <div className="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              {goals.map(g => <th key={g}>{g}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {students.map(s => (
+              <tr key={s.id}>
+                <td>{s.name}</td>
+                {goals.map(g => (
+                  <td key={g}>{latest[s.id] && latest[s.id][g] ? latest[s.id][g].status : '—'}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
