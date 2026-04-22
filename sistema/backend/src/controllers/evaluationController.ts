@@ -1,19 +1,33 @@
-import { Request, Response } from 'express';
-import JsonRepository from '../repositories/jsonRepository';
-import { Evaluation } from '../models/types';
-import { v4 as uuidv4 } from 'uuid';
+import { Request, Response } from "express";
+import JsonRepository from "../repositories/jsonRepository";
+import { Evaluation } from "../models/types";
+import { v4 as uuidv4 } from "uuid";
+import NotificationRepository from "../repositories/notificationRepository";
 
-const repo = new JsonRepository<Evaluation[]>('src/data/evaluations.json');
+const repo = new JsonRepository<Evaluation[]>("src/data/evaluations.json");
 
-const ALLOWED: string[] = ['MANA', 'MPA', 'MA'];
+const ALLOWED: string[] = ["MANA", "MPA", "MA"];
 
 export async function createEvaluation(req: Request, res: Response) {
   const body = req.body;
-  if (!body || typeof body.studentId !== 'string' || typeof body.classId !== 'string' || typeof body.goal !== 'string' || typeof body.status !== 'string') {
-    return res.status(400).json({ error: 'studentId (UUID), classId (UUID), goal (string) and status (string) are required' });
+  if (
+    !body ||
+    typeof body.studentId !== "string" ||
+    typeof body.classId !== "string" ||
+    typeof body.goal !== "string" ||
+    typeof body.status !== "string"
+  ) {
+    return res
+      .status(400)
+      .json({
+        error:
+          "studentId (UUID), classId (UUID), goal (string) and status (string) are required",
+      });
   }
   if (!ALLOWED.includes(body.status)) {
-    return res.status(400).json({ error: `status must be one of ${ALLOWED.join(', ')}` });
+    return res
+      .status(400)
+      .json({ error: `status must be one of ${ALLOWED.join(", ")}` });
   }
 
   const evaluation: Evaluation = {
@@ -28,6 +42,14 @@ export async function createEvaluation(req: Request, res: Response) {
   await repo.update((current) => {
     const list = Array.isArray(current) ? current : [];
     return [...list, evaluation] as unknown as Evaluation[];
+  });
+
+  // create a pending notification entry for aggregation
+  await NotificationRepository.add({
+    id: uuidv4(),
+    studentId: evaluation.studentId,
+    evaluationId: evaluation.id,
+    createdAt: new Date().toISOString(),
   });
 
   return res.status(201).json(evaluation);
